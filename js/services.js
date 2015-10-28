@@ -494,7 +494,8 @@ app.service('InputService', function ($rootScope, IRCService, SettingsService, C
   }, 'Send a CTCP message to nick.');
   
   this.register('me', function (message) {
-    this.network.writeLine('PRIVMSG %s :\u0001ACTION %s\u0001', this.channel.name, _.toArray(arguments).join(' '));
+    var args = _.toArray(arguments);
+    this.channel.writeLine('%s %s', args.shift(), args.join(' '));
   }, 'Send an action to the current channel.');
   
   this.register('bug', function () {
