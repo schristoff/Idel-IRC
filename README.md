@@ -1,11 +1,10 @@
 It’s Like IRC
-
 ===
 
 This is a fork from Idel-IRC that’s being brought up to date and highly stylized to look more like slack since I want Slack at work but can’t have it.
 
 TO DO LIST
-——
+---
 
 - Fix /me commands (just dying and not showing, did I break this?)
 - Add + buttons that allow users to automatically issue commands like join a new server or join a new room
@@ -16,9 +15,11 @@ TO DO LIST
 - ability to collapse users and not show them for a room
 
 STRETCH GOALS
-——
+---
+
 - Emoji Support
-- Giphy Support? (Important)
+- Giphy Support? (Important!)
+- Redo the little dock icons
 
 
 Usage
