@@ -40,8 +40,13 @@
 @color-irc-yellow: #fc0;
 @color-irc-cyan: #0ef;
 
-@font-sans: 'Open Sans', Helvetica, arial, sans;
+@font-sans: 'Lato', Helvetica, arial, sans;
 @font-mono: 'Monaco';
+
+@font-face {
+  font-family: 'Lato';
+  src: url('fonts/Lato-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
+}
 
 // LESS shortcuts
 
@@ -52,6 +57,9 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Lato', sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
@@ -88,7 +96,6 @@ a {
 
 ::-webkit-scrollbar-thumb {
   background: rgba(30, 30, 30, 0);
-  border: 1px solid rgba(40, 40, 40, 0);
 
   border-radius: 7px;
 
@@ -119,7 +126,6 @@ a {
     }
     &::-webkit-scrollbar-thumb {
       background: #111;
-      border: 1px solid #000;
     }
     &::-webkit-scrollbar-corner {
       display: block;
@@ -168,6 +174,14 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
 }
 
+span.client-name {
+    font-size: 1.125rem;
+    line-height: 1.375rem;
+    font-family: 'Lato', sans-serif;
+    font-size: 1rem;
+    font-weight: 900;
+    }
+
 ul {
   list-style: none;
   margin: 0;
@@ -203,19 +217,17 @@ hr {
   width: 100%;
   height: 1px;
   border: none;
-  background: @color-borders;
 }
 
 // Components
 
 header {
-  -webkit-app-region: drag;
-  
-  background-image: -webkit-gradient(linear, left top, left bottom,
-                                     color-stop(0%, darken(@color-background, 5%)),
-                                     color-stop(100%, @color-background));
-
-  padding: 0 20px;
+	-webkit-app-region: drag;
+    padding: 20px 20px 20px 0px;
+    top: 0;
+    position: fixed;
+    background: white;
+    z-index: 100;
 
   h1 {
     color: @color-logo;
@@ -263,63 +275,50 @@ header {
   }
 }
 
-header, network-list, chat-window, nick-list, input-box {
-  border: 1px solid @color-borders;
-}
 
 chat-window {
+  padding-right: 20px;
   .scrollable;
-
   font-size: 0.9em;
   position: relative;
   
   background-image: @color-chat-separator;
   background-position: 170px 0;
   background-repeat: repeat-y;
-  
+
+
+  ul {
+    padding-bottom: 50px;
+  }
   li {
     position: relative;
-    
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    color: #3d3c40;
     cursor: text;
     -webkit-user-select: all;
+        margin-left: 20px;
     
     .nick {
-      position: absolute;
-      left: 0;
-      width: 160px;
-      line-height: 1.8em;
-      font-weight: bold;
-      text-align: right;
-      display: inline;
-      overflow: hidden;
-      font-size: 0.9em;
-      padding: 0;
+    font-weight: 900;
+    padding-right: .25rem;
+    color: #3d3c40!important;
+    margin-left: 0;
+    font-style: normal;
     }
     
     .timestamp {
-      position: absolute;
-      left: 0;
-      width: 160px;
-      text-align: left;
-      color: #444;
-      padding: 0 10px;
-      line-height: 1.9em;
-      font-size: 0.8em;
-      font-weight: bold;
-      background-image: -webkit-gradient(linear, left top, right top,
-                                         color-stop(0%, @color-background),
-                                         color-stop(30%, @color-background),
-                                         color-stop(70%, fade(@color-background, 0%)));
-      z-index: 99;
-      
-      &:hover {
-        opacity: 0;
-      }
+    text-align: right;
+    color: #babbbf;
+    font-size: 9pt;
+    line-height: 1.2rem;
+    margin-right: 0;
+    margin-left: 0;
+
     }
     
     .type-0 {
-      &:before { opacity: 0.2; content: '<'; padding-right: 4px; }
-      &:after { opacity: 0.2; content: '>'; padding-left: 4px; }
+
     }
 
     .type-1 {
@@ -331,14 +330,7 @@ chat-window {
     }
     
     p {
-      color: @color-chat-text;
-
-      font-family: @font-sans;
-      font-size: 0.9em;
-      line-height: 1.8em;
-
       margin: 0;
-      margin-left: 185px;
     }
   }
 }
@@ -347,18 +339,6 @@ network-list {
   .scrollable;
   
   min-width: 120px;
-
-  span {
-    display: block;
-    border-bottom: 1px solid @color-borders;
-    text-align: center;
-    text-transform: uppercase;
-    background: @color-borders;
-
-    padding: 6px 12px;
-    font-weight: bold;
-    font-size: 0.8em;
-  }
 }
 
 channel-list {
@@ -369,22 +349,8 @@ channel-list {
     font-size: 0.8em;
 
     -webkit-transition: background ease-in-out 0.1s, color ease-in-out 0.1s;
-
-    &:nth-child(1) { color: desaturate(@color-channel-1, 50%); &.notifyStatus, &.notifyMessage { color: @color-channel-1; } &.selected, &.notifyHighlight, &:hover { background: @color-channel-1; color: contrast(@color-channel-1); }}
-    &:nth-child(2) { color: desaturate(@color-channel-2, 50%); &.notifyStatus, &.notifyMessage { color: @color-channel-2; } &.selected, &.notifyHighlight, &:hover { background: @color-channel-2; color: contrast(@color-channel-2); }}
-    &:nth-child(3) { color: desaturate(@color-channel-3, 50%); &.notifyStatus, &.notifyMessage { color: @color-channel-3; } &.selected, &.notifyHighlight, &:hover { background: @color-channel-3; color: contrast(@color-channel-3); }}
-    &:nth-child(4) { color: desaturate(@color-channel-4, 50%); &.notifyStatus, &.notifyMessage { color: @color-channel-4; } &.selected, &.notifyHighlight, &:hover { background: @color-channel-4; color: contrast(@color-channel-4); }}
-    &:nth-child(5) { color: desaturate(@color-channel-5, 50%); &.notifyStatus, &.notifyMessage { color: @color-channel-5; } &.selected, &.notifyHighlight, &:hover { background: @color-channel-5; color: contrast(@color-channel-5); }}
-    &:nth-child(6) { color: desaturate(@color-channel-6, 50%); &.notifyStatus, &.notifyMessage { color: @color-channel-6; } &.selected, &.notifyHighlight, &:hover { background: @color-channel-6; color: contrast(@color-channel-6); }}
-    
     cursor: pointer;
     
-  }
-  
-  .selected {
-    font-weight: bold;
-    background: #fff !important;
-    color: #000 !important;
   }
   
   .notifyStatus {
@@ -406,41 +372,40 @@ nick-list {
   min-width: 120px;
   
   li {
-    padding: 6px 12px;
-    font-weight: bold;
-    font-size: 0.8em;
-
+  line-height: 1.5;
+    font-size: 1em;
     -webkit-transition: background ease-in-out 0.1s, color ease-in-out 0.1s;
-    
     cursor: pointer;
+    margin-left: 17px;
+    font-weight: 300;
   }
 }
 
 input-box {
   input {
+    background: #fff;
     width: 100%;
+    font-size: 15px;
+    line-height: 1.2rem;
+    border: 2px solid #E0E0E0;
+    background-clip: padding-box;
+    font-family: 'Lato', Helvetica, arial, sans;;
+    margin: 5px;
+    color: #3d3c40;
+    -webkit-appearance: none;
+    box-shadow: none;
+    outline: 0;
+    position: absolute;
+    bottom: 0;
     height: 100%;
-    margin: 0;
-    padding: 8px 20px;
-    background: @color-input;
-    color: @color-input-text;
-    border: none;
-    border-bottom: 2px solid @color-input-edge;
-
-    font-weight: bold;
-    
-    box-shadow: inset 0 4px 4px 0 darken(@color-input, 8%);
-    
-    position: relative;
-    
-    &:focus {
-      outline: none;
-      border-bottom: 2px solid @color-input-edge-hover;
-      &::-webkit-input-placeholder {
-        color: transparent;
-      }
-    }
-    
+    min-height: 30px!important;
+    padding: 4px 20px 4px 8px;
+    max-height: 10pc!important;
+    resize: none!important;
+    -webkit-transition: none;
+    -moz-transition: none;
+    transition: none;
+    border-radius: 6px;
     &::-webkit-input-placeholder {
       color: #222;
     }
@@ -477,7 +442,6 @@ input-box {
     width: 100%;
     background: #fff;
     padding: 8px;
-    border: 1px solid #aaa;
   }
 }
 
@@ -503,28 +467,115 @@ input-box {
 
 // Nick colors
 
-.color-1 { color: @color-nick-1; &:hover { background: @color-nick-1; color: contrast(@color-nick-1); }}
-.color-2 { color: @color-nick-2; &:hover { background: @color-nick-2; color: contrast(@color-nick-2); }}
-.color-3 { color: @color-nick-3; &:hover { background: @color-nick-3; color: contrast(@color-nick-3); }}
-.color-4 { color: @color-nick-4; &:hover { background: @color-nick-4; color: contrast(@color-nick-4); }}
-.color-5 { color: @color-nick-5; &:hover { background: @color-nick-5; color: contrast(@color-nick-5); }}
-.color-6 { color: @color-nick-6; &:hover { background: @color-nick-6; color: contrast(@color-nick-6); }}
-
 // IRC Colors
 
-.irc-color-00 { font-weight: bold; color: @color-irc-white; }
-.irc-color-01 { font-weight: normal; color: @color-irc-black; }
-.irc-color-02 { font-weight: normal; color: @color-irc-blue; }
-.irc-color-03 { font-weight: normal; color: @color-irc-green; }
-.irc-color-04 { font-weight: bold; color: @color-irc-red; }
-.irc-color-05 { font-weight: normal; color: @color-irc-red; }
-.irc-color-06 { font-weight: normal; color: @color-irc-purple; }
-.irc-color-07 { font-weight: normal; color: @color-irc-yellow; }
-.irc-color-08 { font-weight: bold; color: @color-irc-yellow; }
-.irc-color-09 { font-weight: bold; color: @color-irc-green; }
-.irc-color-10 { font-weight: normal; color: @color-irc-cyan; }
-.irc-color-11 { font-weight: bold; color: @color-irc-cyan; }
-.irc-color-12 { font-weight: bold; color: @color-irc-blue; }
-.irc-color-13 { font-weight: bold; color: @color-irc-purple; }
-.irc-color-14 { font-weight: bold; color: @color-irc-black; }
-.irc-color-15 { font-weight: normal; color: @color-irc-white; }
+
+
+/* Custom Slack Styles Here */
+
+.chat-window {
+	width: 100%;
+    background: white;
+    overflow: scroll;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1pc;
+    line-height: 1rem;
+    background: #fff;
+    color: #555459;
+    font-family: 'Lato';
+    padding-left: 225px;
+}
+
+.sidebar {
+    height: 1800px;
+    width: 220px;
+    background: #4D394B;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1041;
+    padding-right: 20px;
+    padding-top: 20px;
+}
+
+.footer {
+	position: fixed;
+    background: #fff;
+    bottom: 0;
+    left: 220px;
+    right: 1rem;
+    height: 4rem;
+    z-index: 52;
+    }
+span.client-name {
+	font-size: 1.4rem;
+    line-height: 53px;
+    display: inline-block;
+    padding: 0 .1rem 0 1.5rem;
+    cursor: pointer;
+    color: #555459;
+    font-weight: 900;
+}
+
+h2.side-header {
+	padding-left: 15px;
+	padding-bottom: 15px;
+}
+
+span.lighter {
+    color: #9e9ea6;
+    }
+span.network-name {
+    text-align: left;
+    font-size: .8rem;
+    line-height: 1.25rem;
+    margin: 0 1rem .1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #ab9ba9;
+    width: 165px;
+    position: relative;
+    }
+
+li.channel-name {
+    color: #ab9ba9 !important;
+    background: none !important;
+    display: block;
+    height: 1.5rem;
+    padding: 0 .5rem 0 1rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+    background-clip: padding-box;
+    text-decoration: none!important;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 200;
+    text-transform: lowercase;
+    text-align: left;
+}
+
+li.channel-name.selected {
+    color: #fff !important;
+    background: #4c9689 !important;
+}
+
+ul.nicks {
+    margin-top: 20px;
+  }
+span.message {
+	color: #8b898f;
+    font-style: italic;
+  }
+span.users {
+    text-align: left;
+    font-size: .8rem;
+    line-height: 1.25rem;
+    margin: 0 1rem .1rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: #ab9ba9;
+    width: 165px;
+    position: relative;
+}

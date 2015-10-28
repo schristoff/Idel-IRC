@@ -1,6 +1,6 @@
 <vbox>
   <header>
-    <h1>Idel</h1>
+    <h1>Private</h1>
     <p data-ng-bind-html-unsafe="irc.currentChannel().topic | default:'No Topic' | escape | irccolorize | linkify"></p>
     <button class="button-minimize" data-ng-show="port.canMinimize" data-ng-click="port.minimizeWindow()">_</button>
     <button class="button-close" data-ng-show="port.canClose" data-ng-click="port.closeWindow()">&times;</button>

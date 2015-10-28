@@ -1,8 +1,9 @@
 {
-  "name": "Idel IRC",
-  "description": "A friendly yet advanced client for IRC (Internet Relay Chat).",
-  "version": "1.0.3",
+  "name": "Ideal Slack",
+  "description": "A friendly yet advanced client for IRC (Internet Relay Chat). DEVELOPMENT",
+  "version": "0.0.1",
   "manifest_version": 2,
+  "content_security_policy": "script-src 'self' http://fonts.googleapis.com; object-src 'self'",
   "app": {
     "background": {
       "scripts": ["ports/chrome/background.js"]
@@ -22,3 +23,4 @@
     "512": "assets/icon-512.png"
   }
 }
+

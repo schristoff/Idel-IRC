@@ -1,18 +1,23 @@
 <vbox>
-  <header>
-    <h1>Idel</h1>
-    <p data-ng-bind-html-unsafe="irc.currentChannel().topic | default:'No Topic' | escape | irccolorize | linkify"></p>
+ <hbox class="flex-1">
+  <div class="sidebar">
+  	<h2 class="side-header">Channels</h2>
+    <network-list for="irc.networks" class="flex-0"></network-list>
+    <nick-list for="irc.currentChannel()" class="flex-0"></nick-list>
+  </div>
+  <div class="chat-window">
+    <header>
+    <span class="client-name" data-ng-bind-html-unsafe="irc.currentChannel().name"></span>
+    <span data-ng-bind-html-unsafe="irc.currentChannel().topic | default:'No Topic' | escape | irccolorize | linkify"></p>
     <button class="button-minimize" data-ng-show="port.canMinimize" data-ng-click="port.minimizeWindow()">_</button>
     <button class="button-close" data-ng-show="port.canClose" data-ng-click="port.closeWindow()">&times;</button>
-  </header>
-
-  <hbox class="flex-1">
-    <network-list for="irc.networks" class="flex-0"></network-list>
-
+    </header>
     <chat-window for="irc.currentChannel()" class="flex-1"></chat-window>
-
-    <nick-list for="irc.currentChannel()" class="flex-0"></nick-list>
+</div>
+<div class="footer">
+     <div class="input"> 
+      <input-box for="irc.current"></input-box>
+     </div>
+</div>
   </hbox>
-
-  <input-box for="irc.current"></input-box>
 </vbox>

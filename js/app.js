@@ -59,3 +59,4 @@ app.controller('IdelController', function ($scope, $http, PortService, SettingsS
     }
   });
 });
+

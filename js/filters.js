@@ -28,7 +28,7 @@ app.filter('timestamp', function () {
 
 app.filter('nickify', function () {
   return function (nick) {
-    return nick.mode + nick.name;
+    return nick.name;
   };
 });
 
@@ -42,7 +42,7 @@ app.filter('irccolorize', function () {
     var match = null;
 
     while ((match = text.match(colorRegex))) {
-      text = text.replace(colorRegex, '<span class="irc-color-$1">');
+      text = text.replace(colorRegex, '<span class="message">');
       end.push('</span>');
     }
     
