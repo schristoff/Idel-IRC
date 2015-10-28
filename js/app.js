@@ -47,7 +47,7 @@ app.controller('IdelController', function ($scope, $http, PortService, SettingsS
   $scope.$watch('settings.get("theme.user-css")', loadStyle);
   $scope.$on('ui::refresh-style', loadStyle);
 
-  $scope.irc.getStatusChannel().topic = 'Welcome to %sidel IRC%s, type %s/help%s to begin.'.format(
+  $scope.irc.getStatusChannel().topic = 'This is definitely %snot slack%s, but it looks like it! Type %s/help%s to begin.'.format(
     ColorService._white, ColorService.reset,
     ColorService.green, ColorService.reset);
   

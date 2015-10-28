@@ -1,4 +1,4 @@
 <ul class="nicks">
-  <span class="users">Users <span class="lighter">(10)</span></span>
+  <span class="users">Users <span class="lighter">({{channel.nicks.length}})</span></span>
   <li data-ng-repeat="nick in channel.nicks | orderBy:'mode+name'" data-ng-bind="nick | nickify" data-colorize="nick.name" data-ng-click="select(nick.name)" class="nicknames"></li>
 </ul>

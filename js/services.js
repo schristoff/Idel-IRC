@@ -14,7 +14,7 @@ app.service('IRCService', function (Network) {
    * @property networks
    * @type {Array}
    */
-  this.networks = [Network({ name: 'Idel' })];
+  this.networks = [Network({ name: 'NotSlack' })];
   
   /**
    * Find a network by name.
@@ -114,7 +114,7 @@ app.service('IRCService', function (Network) {
    * @return {Channel} Channel object for the "Status" channel
    */
   this.getStatusChannel = function (network) {
-    return this.getChannel(network || 'Idel', 'Status');
+    return this.getChannel(network || 'NotSlack', 'Status');
   };
   
   /**
@@ -124,7 +124,7 @@ app.service('IRCService', function (Network) {
    * @type {Object}
    */
   this.current = {
-    network: 'Idel',
+    network: 'NotSlack',
     channel: 'Status'
   };
 });
@@ -187,9 +187,10 @@ app.service('SettingsService', function ($rootScope, PortService) {
   this._defaults = {
     'theme.layout': 'layouts/horizontal.html',
     'theme.user-css': null,
-    'irc.nick': 'Idel',
+    'irc.nick': 'anonymous',
     'idel.firstrun': true
   };
+  
   
   this._settings = {};
   
@@ -462,14 +463,6 @@ app.service('InputService', function ($rootScope, IRCService, SettingsService, C
     this.network.writeLine(_.toArray(arguments).join(' '));
   }, 'Send a raw string to the server.');
 
-  this.register('layout', function (layout) {
-    SettingsService.set('theme.layout', 'layouts/%s.html'.format(layout));
-  }, 'Change the current layout.');
-
-  this.register('theme', function (theme) {
-    SettingsService.set('theme.user-css', theme);
-  }, 'Change the current theme URL (user CSS).');
-  
   this.register('clear', function () {
     this.channel.buffer = [];
   }, 'Clear the current channel\'s buffer.');
