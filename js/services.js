@@ -435,7 +435,7 @@ app.service('InputService', function ($rootScope, IRCService, SettingsService, C
     var network = Network({
       name: _displayname || server,
       servers: [server],
-      nick: Nick(_nick || 'Idel'),
+      nick: Nick(_nick || 'anonymous'),
       password: _pass,
       joinChannels: []
     });
@@ -494,8 +494,7 @@ app.service('InputService', function ($rootScope, IRCService, SettingsService, C
   }, 'Send a CTCP message to nick.');
   
   this.register('me', function (message) {
-    var args = _.toArray(arguments);
-    this.channel.writeLine('%s %s', args.shift(), args.join(' '));
+    this.network.writeLine('%s', _.toArray(arguments).join(' '));
   }, 'Send an action to the current channel.');
   
   this.register('bug', function () {

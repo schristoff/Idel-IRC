@@ -48,7 +48,7 @@ app.directive('chatWindow', function () {
       $scope.$watch('channel', function () {
         $timeout(function () {
           $element.prop('scrollTop', $element.prop('scrollHeight'));
-        },0);
+        },10);
       }, true);
     },
     link: function (scope, element, attrs) {
@@ -66,7 +66,7 @@ app.directive('nickList', function () {
     controller: function ($rootScope, $scope) {
       // Select a nick
       $scope.select = function (name) {
-        $rootScope.$broadcast('ui::nick-list::select', { nick: name });
+        $rootScope.$broadcast('ui::nick-list::select', { nick: '/msg' + name });
       };
     }
   };

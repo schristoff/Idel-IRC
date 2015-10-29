@@ -9,10 +9,15 @@ app.filter('escape', function () {
 
 app.filter('linkify', function () {
   var domainRegexp = /(https?|ftp):\/\/(.*)/;
-
+  var imgRegex = /(http(s?):)|([\/|.|\\w|\\s])*\\.(?:jpg|gif|png)/;
   var urlPatternReplacer = function (match, contents, offset, s) {
-    return '<a href="' + match + '">' + match.match(domainRegexp)[2] + '</a>';
-  };
+  	if (match(imgRegex)) {
+      return '<a href="' + match + '">' + '<img src="'+ match + '">' + '</a>';
+    }
+    else {
+	  return '<a href="' + match + '">' + match.match(domainRegexp)[2] + '</a>';  
+    }};
+  
 
   return function (text) {
     var urlPattern = /\b(?:https?|ftp):\/\/[a-z0-9-+&@#\/%?=~_|!:,.;]*[a-z0-9-+&@#\/%=~_|]/gim;
